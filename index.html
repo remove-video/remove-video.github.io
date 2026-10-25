@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReMoVe — Coherent Human Video Generation</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="hero" aria-labelledby="paper-title">
+        <div class="project-mark" aria-hidden="true">
+          <span class="project-mark-rule"></span>
+          <span class="project-mark-name">ReMoVe</span>
+          <span class="project-mark-rule"></span>
+        </div>
+        <h1 id="paper-title">
+          Refining a Video Model's Own Motion for Coherent Human Video Generation
+        </h1>
+
+        <p class="authors">
+          <a href="https://scholar.google.com/citations?user=ne8Cf-EAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener">Jie Li<sup>1,2</sup></a><sup class="note">*</sup>,
+          <a href="https://scholar.google.com/citations?user=KUvYtB4AAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener">Muxin Pu<sup>3</sup></a>,
+          <a href="https://hongyicai.cc/" target="_blank" rel="noopener">Hongyi Cai<sup>4</sup></a>,
+          <a href="https://dmk041218.github.io/" target="_blank" rel="noopener">Mingkang Dong<sup>5</sup></a>,
+          <a href="https://ggjy.github.io/" target="_blank" rel="noopener">Jianyuan Guo<sup>6</sup></a>,
+          <a href="https://taohuang.info/" target="_blank" rel="noopener">Tao Huang<sup>1</sup></a><sup class="note">†</sup>
+        </p>
+
+        <div class="affiliations" aria-label="Author affiliations">
+          <div id="affiliation-1"><sup>1</sup>Shanghai Jiao Tong University</div>
+          <div id="affiliation-2"><sup>2</sup>University of Science and Technology Beijing</div>
+          <div id="affiliation-3"><sup>3</sup>Monash University</div>
+          <div id="affiliation-4"><sup>4</sup>Universiti Malaya</div>
+          <div id="affiliation-5"><sup>5</sup>The University of Queensland</div>
+          <div id="affiliation-6"><sup>6</sup>City University of Hong Kong</div>
+        </div>
+
+        <p class="notes"><span>*</span> Work done during internship at SJTU. <span>†</span> Corresponding author.</p>
+
+        <nav class="actions" aria-label="Paper links">
+          <a class="button button-primary" href="#">Paper</a>
+          <a class="button" href="#">Code</a>
+          <a class="button" href="#">Dataset</a>
+        </nav>
+      </header>
+
+      <section class="comparison" aria-labelledby="comparison-title">
+        <div class="comparison-heading">
+          <h2 id="comparison-title">Human motion video generation</h2>
+          <p class="prompt"><span>Prompt</span> The person is performing a sequence of Wushu movements, initially standing upright before transitioning into a stance with arms outstretched, pivoting, and executing a low leg sweep, then crouching.</p>
+        </div>
+
+        <div class="comparison-groups" aria-label="Video comparison">
+          <div class="method-group ours-group">
+            <div class="group-heading"><span>Ours</span></div>
+            <article class="video-card ours">
+              <div class="video-label"><strong>ReMoVe</strong></div>
+              <video controls preload="metadata" playsinline src="assets/videos/remove.mp4"></video>
+            </article>
+          </div>
+
+          <div class="method-group">
+            <div class="group-heading"><span>Base models</span></div>
+            <div class="group-videos">
+              <article class="video-card">
+                <div class="video-label"><strong>Wan2.2-5B</strong></div>
+                <video controls preload="metadata" playsinline src="assets/videos/wan2.2-5b.mp4"></video>
+              </article>
+              <article class="video-card">
+                <div class="video-label"><strong>CogVideoX1.5-5B</strong></div>
+                <video controls preload="metadata" playsinline src="assets/videos/cogvideox1.5-5b.mp4"></video>
+              </article>
+            </div>
+          </div>
+
+          <div class="method-group">
+            <div class="group-heading"><span>Human Motion Video Generators</span></div>
+            <div class="group-videos">
+              <article class="video-card">
+                <div class="video-label"><strong>CoMoVi</strong></div>
+                <video controls preload="metadata" playsinline src="assets/videos/comovi.mp4"></video>
+              </article>
+              <article class="video-card">
+                <div class="video-label"><strong>MTVCrafter</strong></div>
+                <video controls preload="metadata" playsinline src="assets/videos/mtvcrafter.mp4"></video>
+              </article>
+            </div>
+          </div>
+
+          <div class="method-group">
+            <div class="group-heading"><span>Motion-Conditioned Video Generator</span></div>
+            <article class="video-card">
+              <div class="video-label"><strong>EchoMotion</strong></div>
+              <video controls preload="metadata" playsinline src="assets/videos/echomotion.mp4"></video>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="comparison camera-comparison" aria-labelledby="camera-comparison-title">
+        <div class="comparison-heading">
+          <h2 id="camera-comparison-title">Camera-controlled video generation</h2>
+          <p class="prompt"><span>Prompt</span> The person is demonstrating a Muay Thai Hop, a movement used in Muay Thai boxing to maintain rhythm and readiness. Starting in a fighting stance, the individual shifts weight between feet, bouncing lightly and alternating the lift of the heels while maintaining guard position with the hands.</p>
+        </div>
+
+        <div class="comparison-groups" aria-label="Camera-controlled video comparison">
+          <div class="method-group ours-group">
+            <div class="group-heading"><span>Ours</span></div>
+            <article class="video-card ours">
+              <div class="video-label"><strong>ReMoVe</strong></div>
+              <video controls preload="metadata" playsinline src="assets/videos/remove-camera-dolly-in.mp4"></video>
+            </article>
+          </div>
+
+          <div class="method-group">
+            <div class="group-heading"><span>Baselines</span></div>
+            <div class="group-videos">
+              <article class="video-card">
+                <div class="video-label"><strong>TrajCrafter</strong></div>
+                <video controls preload="metadata" playsinline src="assets/videos/trajcrafter-dolly-in.mp4"></video>
+              </article>
+              <article class="video-card">
+                <div class="video-label"><strong>EPiC</strong></div>
+                <video controls preload="metadata" playsinline src="assets/videos/epic-dolly-in.mp4"></video>
+              </article>
+              <article class="video-card">
+                <div class="video-label"><strong>RealCam-I2V</strong></div>
+                <video controls preload="metadata" playsinline src="assets/videos/realcam-dolly-in.mp4"></video>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

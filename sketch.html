@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReMoVe — Sketch Edition</title>
+    <link rel="stylesheet" href="sketch.css" />
+  </head>
+  <body>
+    <main class="sketch-page">
+      <header class="sketch-header">
+        <div class="logo-mark"><span>ReMoVe</span></div>
+        <h1>Refining a Video Model's Own Motion for Coherent Human Video Generation</h1>
+
+        <p class="authors">
+          <a href="https://scholar.google.com/citations?user=ne8Cf-EAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener">Jie Li<sup>1,2</sup></a><sup>*</sup>,
+          <a href="https://scholar.google.com/citations?user=KUvYtB4AAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener">Muxin Pu<sup>3</sup></a>,
+          <a href="https://hongyicai.cc/" target="_blank" rel="noopener">Hongyi Cai<sup>4</sup></a>,
+          <a href="https://dmk041218.github.io/" target="_blank" rel="noopener">Mingkang Dong<sup>5</sup></a>,
+          <a href="https://ggjy.github.io/" target="_blank" rel="noopener">Jianyuan Guo<sup>6</sup></a>,
+          <a href="https://taohuang.info/" target="_blank" rel="noopener">Tao Huang<sup>1</sup></a><sup>†</sup>
+        </p>
+
+        <div class="affiliations">
+          <span><sup>1</sup>Shanghai Jiao Tong University</span>
+          <span><sup>2</sup>University of Science and Technology Beijing</span>
+          <span><sup>3</sup>Monash University</span>
+          <span><sup>4</sup>Universiti Malaya</span>
+          <span><sup>5</sup>The University of Queensland</span>
+          <span><sup>6</sup>City University of Hong Kong</span>
+        </div>
+        <p class="notes">* Work done during internship at SJTU. &nbsp;† Corresponding author.</p>
+      </header>
+
+      <section class="sketch-section case-section">
+        <h2>Human motion video generation</h2>
+        <p class="prompt"><b>Prompt</b> The person is performing a sequence of Wushu movements, initially standing upright before transitioning into a stance with arms outstretched, pivoting, and executing a low leg sweep, then crouching.</p>
+        <div class="sketch-groups">
+          <div class="sketch-group group-ours">
+            <h3>Ours</h3>
+            <article class="video-card"><strong>ReMoVe</strong><video controls preload="metadata" playsinline src="assets/videos/remove.mp4"></video></article>
+          </div>
+          <div class="sketch-group group-baseline">
+            <h3>Base models</h3>
+            <div class="card-row">
+              <article class="video-card"><strong>Wan2.2-5B</strong><video controls preload="metadata" playsinline src="assets/videos/wan2.2-5b.mp4"></video></article>
+              <article class="video-card"><strong>CogVideoX1.5-5B</strong><video controls preload="metadata" playsinline src="assets/videos/cogvideox1.5-5b.mp4"></video></article>
+            </div>
+          </div>
+          <div class="sketch-group group-baseline">
+            <h3>Human Motion Video Generators</h3>
+            <div class="card-row">
+              <article class="video-card"><strong>CoMoVi</strong><video controls preload="metadata" playsinline src="assets/videos/comovi.mp4"></video></article>
+              <article class="video-card"><strong>MTVCrafter</strong><video controls preload="metadata" playsinline src="assets/videos/mtvcrafter.mp4"></video></article>
+            </div>
+          </div>
+          <div class="sketch-group group-baseline">
+            <h3>Motion-Conditioned Video Generator</h3>
+            <article class="video-card"><strong>EchoMotion</strong><video controls preload="metadata" playsinline src="assets/videos/echomotion.mp4"></video></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="sketch-section second-section case-section">
+        <h2>Camera-controlled video generation</h2>
+        <p class="prompt"><b>Prompt</b> The person is demonstrating a Muay Thai Hop, a movement used in Muay Thai boxing to maintain rhythm and readiness. Starting in a fighting stance, the individual shifts weight between feet, bouncing lightly and alternating the lift of the heels while maintaining guard position with the hands.</p>
+        <div class="sketch-groups">
+          <div class="sketch-group group-ours">
+            <h3>Ours</h3>
+            <article class="video-card"><strong>ReMoVe</strong><video controls preload="metadata" playsinline src="assets/videos/remove-camera-dolly-in.mp4"></video></article>
+          </div>
+          <div class="sketch-group group-baseline">
+            <h3>Baselines</h3>
+            <div class="card-row">
+              <article class="video-card"><strong>TrajCrafter</strong><video controls preload="metadata" playsinline src="assets/videos/trajcrafter-dolly-in.mp4"></video></article>
+              <article class="video-card"><strong>EPiC</strong><video controls preload="metadata" playsinline src="assets/videos/epic-dolly-in.mp4"></video></article>
+              <article class="video-card"><strong>RealCam-I2V</strong><video controls preload="metadata" playsinline src="assets/videos/realcam-dolly-in.mp4"></video></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sketch-section pipeline-section method-section">
+        <div class="method-kicker">Method overview</div>
+        <h2>From coarse motion to coherent video</h2>
+        <p class="method-lead">ReMoVe treats the base generator's coarse output as a motion hypothesis rather than a final result. It recovers and refines the underlying motion, renders aligned mesh and depth conditions under a shared camera trajectory, and uses these explicit signals to guide the final video generation.</p>
+        <div class="method-subheading">An inference example</div>
+        <p class="prompt"><b>Prompt</b> A person stepping one foot forward into a deep lunge, bending both knees, then pushing back to a standing position and repeating.</p>
+
+        <div class="pipeline-videos" aria-label="ReMoVe inference pipeline">
+          <article class="video-card pipeline-card"><span class="step-number">01</span><strong>Coarse video</strong><video controls preload="metadata" playsinline src="assets/videos/coarse-lunges-15fps.mp4"></video></article>
+          <article class="video-card pipeline-card"><span class="step-number">02</span><strong>Rendered mesh</strong><video controls preload="metadata" playsinline src="assets/videos/mesh-lunges-15fps.mp4"></video></article>
+          <article class="video-card pipeline-card"><span class="step-number">03</span><strong>Depth</strong><video controls preload="metadata" playsinline src="assets/videos/depth-lunges-15fps.mp4"></video></article>
+          <article class="video-card pipeline-card"><span class="step-number">04</span><strong>Final video</strong><video controls preload="metadata" playsinline src="assets/videos/final-lunges.mp4"></video></article>
+        </div>
+
+        <div class="condition-story">
+          <div class="condition-intro">
+            <span class="story-label">Why two conditions?</span>
+            <p>Mesh makes the human structure explicit. Depth anchors the person to the surrounding scene and camera. Together, they turn motion and geometry into aligned signals that the video generator can follow.</p>
+          </div>
+
+          <div class="condition-columns">
+            <div class="condition-column">
+              <div class="condition-column-title"><span>01</span><h3>Training</h3></div>
+              <div class="condition-item">
+                <h4>Rendered mesh</h4>
+                <p>Each training clip is paired with temporally and spatially aligned SMPL-X motion parameters and camera parameters. We rasterize the posed mesh in the corresponding camera view to obtain the rendered mesh conditioning video. The facial region directly preserves the subject's appearance, while the remaining body is rendered with a single flat skin color and surface-normal-based Lambertian shading, so that body shape and pose are conveyed primarily through silhouette and geometric shading without introducing specific clothing or texture patterns.</p>
+              </div>
+              <div class="condition-item">
+                <h4>Depth</h4>
+                <p>We remove the person from the training video using a foreground mask and stack the remaining frames with person pixels marked invalid. A per-pixel temporal median recovers background pixels observed elsewhere in the clip, while pixels never observed are spatially inpainted. A metric depth estimator then produces the background depth. In parallel, the posed mesh is rasterized to obtain the person's geometric depth, and the two are aligned and fused to form the final depth conditioning video.</p>
+              </div>
+            </div>
+
+            <div class="condition-column">
+              <div class="condition-column-title"><span>02</span><h3>Inference</h3></div>
+              <div class="condition-item">
+                <h4>Rendered mesh</h4>
+                <p>At inference time, we first recover and refine the motion from the base generator's coarse video. Given the refined motion and the target camera trajectory, we pose an SMPL-X mesh for each frame and render it under the target viewpoint, following the same face-region and shaded-body representation used during training. Because the coarse video cannot provide temporally consistent facial observations, we reconstruct a static FLAME texture atlas from a reference portrait of the target identity. Facial pixels are then associated with the aligned FLAME surface, while the body is rendered with a flat skin tone and surface-normal-based shading, with a soft boundary between the two.</p>
+              </div>
+              <div class="condition-item">
+                <h4>Depth</h4>
+                <p>We follow the same procedure as the training-time construction to remove the person from the coarse video, reconstruct the background by temporal median, and estimate its metric depth. When a target camera trajectory is specified, the background depth is unprojected into a point cloud, transformed according to the trajectory, and rendered from the target viewpoint. Disocclusion holes are filled through depth-domain inpainting, while the person depth is obtained by rasterizing the refined mesh from the same viewpoint. The two depth fields are aligned with a shared per-clip scale factor and fused into the final depth conditioning sequence.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <figure class="method-figure">
+          <div class="figure-frame">
+            <img src="assets/method.png" alt="Figure 2: Overview of ReMoVe" />
+          </div>
+          <figcaption><b>Figure 2.</b> Overview of ReMoVe. On the left is the construction of mesh and depth conditions during training (top) and inference (bottom). On the right is the generation pipeline, where the mesh and depth videos are encoded by the VAE, concatenated with the noisy video latent, and fed into the DiT together with the text prompt to produce the final high-quality video.</figcaption>
+        </figure>
+
+        <div class="results-block">
+          <div class="results-heading">
+            <span class="method-kicker">Experiments</span>
+            <h3>Main quantitative results</h3>
+          </div>
+          <p class="results-caption">Quantitative comparison on VBench, the Human Anatomy dimension of VBench-2.0, video-level distribution metrics, and reconstruction fidelity under ground-truth motion.</p>
+          <div class="table-scroll">
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th rowspan="2">Method</th>
+                  <th colspan="8">VBench / VBench-2.0</th>
+                  <th colspan="2">Distribution</th>
+                  <th colspan="3">Reconstruction</th>
+                </tr>
+                <tr>
+                  <th>SC</th><th>MS</th><th>DD</th><th>IQ</th><th>BC</th><th>AQ</th><th>TF</th><th>HA</th>
+                  <th>FVD-16 ↓</th><th>FID-VID ↓</th><th>SSIM ↑</th><th>LPIPS ↓</th><th>PSNR ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-group"><th colspan="14">Base video generators</th></tr>
+                <tr><th>Wan-TI2V-5B</th><td>91.05</td><td>98.87</td><td class="second">66.45</td><td>67.39</td><td>92.42</td><td class="second">49.89</td><td>97.28</td><td>90.88</td><td>91.41</td><td>38.47</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><th>CogVideoX-1.5-I2V-5B</th><td>92.05</td><td>98.78</td><td>9.87</td><td>65.82</td><td>93.48</td><td>47.40</td><td>97.70</td><td>75.49</td><td>75.29</td><td class="best">30.05</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><th>CoMoVi (Wan-5B)</th><td>88.08</td><td>96.91</td><td class="best">76.97</td><td>61.57</td><td>90.44</td><td>46.40</td><td>94.77</td><td>76.17</td><td>96.41</td><td>44.57</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr class="table-group"><th colspan="14">ReMoVe conditions</th></tr>
+                <tr><th>Ours (mesh)</th><td>92.21</td><td>99.30</td><td>50.66</td><td class="second">68.82</td><td>93.88</td><td>49.47</td><td>98.80</td><td>91.54</td><td class="best">63.28</td><td class="second">30.69</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><th>Ours (depth)</th><td class="second">93.17</td><td class="second">99.48</td><td>42.11</td><td class="best">69.07</td><td class="best">94.60</td><td>49.36</td><td class="second">99.25</td><td class="second">91.87</td><td>70.97</td><td>34.24</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><th>Ours (mesh + depth)</th><td class="best">93.26</td><td class="best">99.50</td><td>40.79</td><td>68.46</td><td class="second">94.48</td><td class="best">50.02</td><td class="best">99.27</td><td class="best">92.66</td><td class="second">69.87</td><td>33.00</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr class="table-group"><th colspan="14">Ground-truth motion</th></tr>
+                <tr><th>EchoMotion (GT-motion)</th><td>85.47</td><td>94.60</td><td class="best">96.05</td><td>53.41</td><td>91.12</td><td>42.17</td><td>93.02</td><td>76.50</td><td>445.18</td><td>219.12</td><td>—</td><td>—</td><td>—</td></tr>
+                <tr><th>MTVCrafter (GT-motion)</th><td class="best">96.81</td><td class="best">99.71</td><td>0.0</td><td class="best">70.12</td><td class="best">97.39</td><td>44.93</td><td class="best">99.80</td><td class="best">94.85</td><td>83.27</td><td>47.28</td><td>0.7638</td><td>0.1697</td><td>19.483</td></tr>
+                <tr><th>Ours (mesh + depth, GT-motion)</th><td>94.08</td><td>99.41</td><td>11.18</td><td>68.81</td><td>94.75</td><td class="best">49.05</td><td>99.20</td><td>90.50</td><td class="best">27.71</td><td class="best">16.27</td><td class="best">0.7984</td><td class="best">0.1214</td><td class="best">22.447</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">Best and second-best values are highlighted within the corresponding comparison groups. Arrows indicate whether higher or lower values are preferred.</p>
+        </div>
+      </section>
+
+      <section class="citation-section" aria-labelledby="citation-title">
+        <h2 id="citation-title">Citation</h2>
+        <pre>@inproceedings{
+anonymous2026remove,
+title={ReMoVe: Refining a Video Model's Own Motion for Coherent Human Video Generation},
+author={Anonymous},
+booktitle={Submitted to The Fifteenth International Conference on Learning Representations},
+year={2026},
+url={https://openreview.net/forum?id=tmVDnWYQ3T},
+note={under review}
+}</pre>
+      </section>
+
+    </main>
+  </body>
+</html>
