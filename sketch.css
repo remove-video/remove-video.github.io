@@ -329,9 +329,9 @@ footer {
 
 .figure-frame {
   overflow: hidden;
-  border: 1.5px solid var(--line);
-  border-radius: 5px 7px 4px 6px;
-  background: rgba(236, 233, 223, 0.62);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .figure-frame img {
