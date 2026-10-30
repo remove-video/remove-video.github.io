@@ -76,6 +76,21 @@ a { color: inherit; }
 
 .notes { margin: 8px auto 0; color: #66635d; font-size: 0.7rem; }
 
+.project-links {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.project-links a {
+  display: inline-flex;
+  transition: transform 160ms ease;
+}
+
+.project-links a:hover { transform: translateY(-2px) rotate(-1deg); }
+.project-links img { height: 22px; }
+
 .sketch-section {
   max-width: 1500px;
   margin: 0 auto;
@@ -371,33 +386,6 @@ footer {
 .results-table .best { background: #e2cfae; font-weight: 700; }
 .results-table .second { background: #eee4cf; }
 .table-note { margin: 10px 0 0; color: #77736a; font-size: 0.66rem; line-height: 1.6; }
-
-.citation-section {
-  max-width: 1500px;
-  margin: 34px auto 0;
-  padding-top: 24px;
-  border-top: 2px solid var(--line);
-}
-
-.citation-section h2 {
-  margin: 0 0 12px;
-  font-family: Kalam, cursive;
-  font-size: 1.2rem;
-}
-
-.citation-section pre {
-  overflow-x: auto;
-  margin: 0;
-  padding: 18px 20px;
-  border: 1.5px solid var(--line);
-  border-radius: 5px 7px 4px 6px;
-  background: rgba(255, 255, 255, 0.38);
-  color: #45423c;
-  font-family: "Courier New", monospace;
-  font-size: 0.7rem;
-  line-height: 1.65;
-  white-space: pre;
-}
 
 @media (max-width: 760px) {
   .pipeline-videos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
